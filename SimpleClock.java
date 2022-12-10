@@ -6,11 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 
 public class SimpleClock extends JFrame {
-
-        Calendar calendar;
         SimpleDateFormat timeFormat;
         SimpleDateFormat dayFormat;
         SimpleDateFormat dateFormat;
@@ -21,9 +20,8 @@ public class SimpleClock extends JFrame {
         String day;
         String date;
         boolean toggle = true;
+        boolean zoneToggle = true;
         SimpleClock() {
-
-
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setTitle("Digital Clock");
             this.setLayout(new FlowLayout());
@@ -40,9 +38,24 @@ public class SimpleClock extends JFrame {
             timeLabel.setOpaque(true);
             dayLabel=new JLabel();
             dayLabel.setFont(new Font("Ink Free",Font.BOLD,34));
-
             dateLabel=new JLabel();
             dateLabel.setFont(new Font("Ink Free",Font.BOLD,30));
+
+            JButton GMT = new JButton("GMT");
+            GMT.setLayout(null);
+            GMT.setBounds(100, 50, 50, 25);
+            GMT.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(zoneToggle) {
+                        timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+                        zoneToggle = false;
+                    } else if (!zoneToggle) {
+                        timeFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+                        zoneToggle = true;
+                    }
+                }
+            });
             JButton militaryClock = new JButton("Military Time");
             militaryClock.setLayout(null);
             militaryClock.setBounds(250,50,50,25);
@@ -64,9 +77,8 @@ public class SimpleClock extends JFrame {
             this.add(dayLabel);
             this.add(dateLabel);
             this.add(militaryClock);
+            this.add(GMT);
             this.setVisible(true);
-
-
 
             runClock();
 //            setTimer();
