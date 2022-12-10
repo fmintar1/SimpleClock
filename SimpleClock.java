@@ -20,24 +20,9 @@ public class SimpleClock extends JFrame {
         String time;
         String day;
         String date;
+        boolean toggle = true;
         SimpleClock() {
-            JButton militaryClock = new JButton("Military Time");
-            militaryClock.setLayout(null);
-            militaryClock.setBounds(250,50,50,25);
-            militaryClock.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    boolean toggle = true;
-                    if(toggle) {
-                        timeFormat = new SimpleDateFormat("kk:mm:ss");
-                        toggle = false;
-                    }
-//                        if (!toggle) {
-//                        timeFormat = new SimpleDateFormat("hh:mm:ss a");
-//                        toggle = true;
-//                    }
-                }
-            });
+
 
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setTitle("Digital Clock");
@@ -58,6 +43,22 @@ public class SimpleClock extends JFrame {
 
             dateLabel=new JLabel();
             dateLabel.setFont(new Font("Ink Free",Font.BOLD,30));
+            JButton militaryClock = new JButton("Military Time");
+            militaryClock.setLayout(null);
+            militaryClock.setBounds(250,50,50,25);
+            militaryClock.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(toggle) {
+                        timeFormat = new SimpleDateFormat("kk:mm:ss");
+                        toggle = false;
+                    }
+                    else if (!toggle) {
+                        timeFormat = new SimpleDateFormat("hh:mm:ss a");
+                        toggle = true;
+                    }
+                }
+            });
 
             this.add(timeLabel);
             this.add(dayLabel);
